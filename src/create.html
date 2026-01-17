@@ -7,35 +7,38 @@
 <body>
 
 <h2>Create Your Portfolio</h2>
+<div>
 
-<form id="portfolioForm">
+    <form id="portfolioForm">
+    
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="text" id="role" placeholder="Your Role">
+      <textarea id="about" placeholder="About You"></textarea>
+      <input type="text" id="skills" placeholder="Skills (comma separated)">
+      <input type="email" id="email" placeholder="Email">
+    
+      <label>Profile Photo</label>
+      <input type="file" id="photo" accept="image/*">
+    
+      <label>Theme</label>
+      <select id="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="blue">Blue</option>
+      </select>
+    
+      <label>Portfolio Format</label>
+      <select id="layout">
+        <option value="card">Classic Card</option>
+        <option value="resume">Resume Style</option>
+        <option value="minimal">Minimal</option>
+      </select>
+    
+      <button type="submit">Generate Portfolio</button>
+    
+    </form>
+</div>
 
-  <input type="text" id="name" placeholder="Your Name" required>
-  <input type="text" id="role" placeholder="Your Role">
-  <textarea id="about" placeholder="About You"></textarea>
-  <input type="text" id="skills" placeholder="Skills (comma separated)">
-  <input type="email" id="email" placeholder="Email">
-
-  <label>Profile Photo</label>
-  <input type="file" id="photo" accept="image/*">
-
-  <label>Theme</label>
-  <select id="theme">
-    <option value="light">Light</option>
-    <option value="dark">Dark</option>
-    <option value="blue">Blue</option>
-  </select>
-
-  <label>Portfolio Format</label>
-  <select id="layout">
-    <option value="card">Classic Card</option>
-    <option value="resume">Resume Style</option>
-    <option value="minimal">Minimal</option>
-  </select>
-
-  <button type="submit">Generate Portfolio</button>
-
-</form>
 
 <script src="js/form.js"></script>
 </body>
