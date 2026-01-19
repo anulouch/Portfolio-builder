@@ -1,36 +1,31 @@
+/* 1. Global Reset & Layout */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-<<<<<<< HEAD
-
-h2{
-    text-align: center;
-}
- 
-#portfolioForm {
-  position: relative;
-=======
 body {
-  font-family: system-ui, -apple-system, sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2); /* Purple Gradient */
   min-height: 100vh;
->>>>>>> refs/remotes/origin/main
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
 }
 
+/* 2. The Main Card */
 form {
   background: white;
   width: 100%;
   max-width: 450px;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
@@ -46,6 +41,7 @@ h2 {
   margin-bottom: 25px;
 }
 
+/* 3. Inputs & Labels */
 .form-group {
   margin-bottom: 15px;
 }
@@ -58,23 +54,28 @@ label {
   margin-bottom: 6px;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   width: 100%;
   padding: 12px;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
-  background-color: #f0f9ff;
+  background-color: #f0f9ff; /* Light blue tint like screenshot */
   font-family: inherit;
   font-size: 14px;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
   border-color: #667eea;
   background-color: #fff;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
+/* 4. Buttons */
 button {
   width: 100%;
   padding: 12px;
@@ -104,6 +105,7 @@ button {
   background-color: #333;
 }
 
+/* 5. Live Preview Styles */
 .preview-container {
   border: 2px dashed #ccc;
   background: #fafafa;
@@ -121,18 +123,19 @@ button {
   display: block;
 }
 
+/* Template Styles inside Preview */
 .t-creative {
   text-align: center;
   background: white;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-top: 4px solid #667eea;
 }
 
 .t-editorial {
   text-align: left;
-  font-family: 'Georgia', serif;
+  font-family: "Georgia", serif;
   background: white;
   padding: 15px;
   border-left: 3px solid #333;
