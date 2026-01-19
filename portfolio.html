@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link rel="stylesheet" href="css/portfolio.css">
+</head>
+
+<body>
+    
+<div id="pdfArea">
+<div id="portfolioRoot"></div>
+
+</div>
+<div style="text-align:center;margin-top:20px">
+  <button onclick="downloadPDF()" style="
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    background:var(--theme);
+    color:#fff;
+    cursor:pointer;
+  ">Download PDF</button>
+
+  <button onclick="downloadZIP()" style="
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    background:#111;
+    color:#fff;
+    cursor:pointer;
+    margin-left:10px;
+  ">Download ZIP</button>
+</div>
+<script src="js/portfolio.js"></script>
+
+</body>
+</html>
