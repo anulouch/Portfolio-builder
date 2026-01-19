@@ -1,44 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/form.css">
 </head>
 <body>
 
-<h2>Create Your Portfolio</h2>
-<div>
+<div class="container">
+  <form id="portfolioForm">
+    <h2>Create Your Portfolio</h2>
+    
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="e.g. John Doe" required>
+    </div>
 
-    <form id="portfolioForm">
-    
-      <input type="text" id="name" placeholder="Your Name" required>
-      <input type="text" id="role" placeholder="Your Role">
-      <textarea id="about" placeholder="About You"></textarea>
-      <input type="text" id="skills" placeholder="Skills (comma separated)">
-      <input type="email" id="email" placeholder="Email">
-    
-      <label>Profile Photo</label>
+    <div class="form-group">
+      <label for="role">Job Role</label>
+      <input type="text" id="role" placeholder="e.g. Frontend Developer">
+    </div>
+
+    <div class="form-group">
+      <label for="about">About You</label>
+      <textarea id="about" rows="3" placeholder="Write a short bio..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="skills">Skills</label>
+      <input type="text" id="skills" placeholder="HTML, CSS, JavaScript">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="john@example.com">
+    </div>
+
+    <div class="form-group">
+      <label for="photo">Profile Photo</label>
       <input type="file" id="photo" accept="image/*">
-    
-      <label>Theme</label>
-      <select id="theme">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="blue">Blue</option>
-      </select>
-    
-      <label>Portfolio Format</label>
-      <select id="layout">
-        <option value="card">Classic Card</option>
-        <option value="resume">Resume Style</option>
-        <option value="minimal">Minimal</option>
-      </select>
-    
-      <button type="submit">Generate Portfolio</button>
-    
-    </form>
-</div>
+    </div>
 
+    <div class="row">
+      <div class="form-group half">
+        <label for="theme">Theme</label>
+        <select id="theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="blue">Blue</option>
+        </select>
+      </div>
+
+      <div class="form-group half">
+        <label for="layout">Format</label>
+        <select id="layout">
+          <option value="card">Card</option>
+          <option value="resume">Resume</option>
+          <option value="minimal">Minimal</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit">Generate Portfolio</button>
+  </form>
+</div>
 
 <script src="js/form.js"></script>
 </body>
