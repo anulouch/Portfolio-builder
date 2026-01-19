@@ -1,114 +1,85 @@
+// 1. Select DOM Elements
 const form = document.getElementById("portfolioForm");
+const previewBox = document.getElementById("previewBox");
 const photoInput = document.getElementById("photo");
-const preview = document.getElementById("preview");
 const templateSelect = document.getElementById("template");
-const templatePreview = document.getElementById("templatePreview");
-const themeInput = document.getElementById("themeColor");
+const resetBtn = document.getElementById("resetBtn");
 
-let photoBase64 = "";
+let photoURL = "";
 
-const savedData = JSON.parse(localStorage.getItem("portfolioData"));
+// 2. Event Listeners for REAL-TIME updates
+document.querySelectorAll("input, textarea, select").forEach((input) => {
+  input.addEventListener("input", renderPreview);
+});
 
-if (savedData) {
-  document.getElementById("name").value = savedData.name || "";
-  document.getElementById("role").value = savedData.role || "";
-  document.getElementById("about").value = savedData.about || "";
-  document.getElementById("skills").value = savedData.skills || "";
-  document.getElementById("email").value = savedData.email || "";
-  templateSelect.value = savedData.template || "creative";
-  themeInput.value = savedData.theme || "#4f46e5";
-
-  // ✅ Restore photo preview SAFELY
-  if (savedData.photo) {
-    const img = document.createElement("img");
-    img.src = savedData.photo;
-    img.style.width = "100%";
-    img.style.height = "100%";
-    img.style.objectFit = "cover";
-
-    preview.innerHTML = "";
-    preview.appendChild(img);
-
-    photoBase64 = savedData.photo;
+// 3. Handle Photo Upload
+photoInput.addEventListener("change", function () {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      photoURL = e.target.result;
+      renderPreview();
+    };
+    reader.readAsDataURL(file);
   }
+});
+
+// 4. The Render Function (Updated to show Email)
+function renderPreview() {
+  const name = document.getElementById("name").value || "Your Name";
+  const role = document.getElementById("role").value || "Your Role";
+  const about = document.getElementById("about").value || "About section...";
+  const skills = document.getElementById("skills").value || "Skills...";
+  const email = document.getElementById("email").value || ""; // Grab Email
+  const template = templateSelect.value;
+
+  const imgHTML = photoURL ? `<img src="${photoURL}" class="mini-photo">` : "";
+
+  let html = "";
+
+  if (template === "creative") {
+    html = `
+      <div class="t-creative">
+        ${imgHTML}
+        <h3 style="margin:5px 0; color:#667eea">${name}</h3>
+        <p style="color:#666; font-size:13px; margin-bottom:8px">${role}</p>
+        <p style="font-size:12px; color:#333">${about}</p>
+        <div style="margin-top:8px; font-size:11px; font-weight:bold; color:#444">Skills: ${skills}</div>
+        <div style="margin-top:8px; font-size:11px; color:#667eea">📧 ${email}</div>
+      </div>`;
+  } else if (template === "editorial") {
+    html = `
+      <div class="t-editorial">
+        ${imgHTML}
+        <h2 style="margin:0">${name}</h2>
+        <i style="color:#555; font-size:14px">${role}</i>
+        <div style="font-size:12px; color:#666; margin-bottom:5px">${email}</div>
+        <hr style="margin:8px 0; opacity:0.3">
+        <p style="font-size:13px">${about}</p>
+      </div>`;
+  } else if (template === "modern") {
+    html = `
+      <div class="t-modern">
+        ${imgHTML}
+        <h3 style="margin:0; color:#fff">${name}</h3>
+        <p style="color:#aaa; font-size:11px; letter-spacing:1px; margin-bottom:10px">${role.toUpperCase()}</p>
+        <p style="font-size:12px; color:#ccc">${about}</p>
+        <div style="margin-top:10px; font-size:11px; color:#667eea">${email}</div>
+      </div>`;
+  }
+
+  previewBox.innerHTML = html;
 }
 
-
-/* APPLY DEFAULT THEME */
-document.documentElement.style.setProperty("--theme", themeInput.value);
-
-/* LIVE THEME PREVIEW */
-themeInput.addEventListener("input", e=>{
-  document.documentElement.style.setProperty("--theme", e.target.value);
-});
-
-/* PHOTO PREVIEW */
-photoInput.addEventListener("change", () => {
-  const file = photoInput.files[0];
-  if (!file) return;
-
-  const img = document.createElement("img");
-  img.src = URL.createObjectURL(file);
-  preview.innerHTML = "";
-  preview.appendChild(img);
-
-  const reader = new FileReader();
-  reader.onload = () => photoBase64 = reader.result;
-  reader.readAsDataURL(file);
-});
-
-/* TEMPLATE LIVE PREVIEW */
-templateSelect.addEventListener("change", () => {
-const n = document.getElementById("name").value || "Your Name";
-const r = document.getElementById("role").value || "Your Role";
-
-  if(templateSelect.value === "creative"){
-    templatePreview.innerHTML = `
-      <div class="preview-card">
-        <h3>${n}</h3>
-        <p>${r}</p>
-      </div>`;
-  }
-
-  if(templateSelect.value === "editorial"){
-    templatePreview.innerHTML = `
-      <div class="preview-editorial">
-        <strong>${n}</strong>
-        <p>${r}</p>
-      </div>`;
-  }
-
-  if(templateSelect.value === "modern"){
-    templatePreview.innerHTML = `
-      <div class="preview-dark">
-        <h3>${n}</h3>
-        <p>${r}</p>
-      </div>`;
+// 5. Reset Button
+resetBtn.addEventListener("click", () => {
+  if (confirm("Clear form?")) {
+    form.reset();
+    photoURL = "";
+    renderPreview();
   }
 });
 
-/* SUBMIT */
-form.addEventListener("submit", e => {
-  e.preventDefault();
-
-  const portfolioData = {
-    name: document.getElementById("name").value,
-    role: document.getElementById("role").value,
-    about: document.getElementById("about").value,
-    skills: document.getElementById("skills").value,
-    email: document.getElementById("email").value,
-    template: document.getElementById("template").value,
-    photo: photoBase64,
-    theme: document.getElementById("themeColor").value
-  };
-
-  localStorage.setItem("portfolioData", JSON.stringify(portfolioData));
-  window.location.href = "portfolio.html";
-});
-
-document.getElementById("resetForm").addEventListener("click", () => {
-  if (confirm("This will clear all data. Continue?")) {
-    localStorage.removeItem("portfolioData");
-    location.reload();
-  }
-});
+// 6. Initial Call
+renderPreview();
