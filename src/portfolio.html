@@ -1,41 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>My Portfolio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<link rel="stylesheet" href="css/portfolio.css">
-</head>
 
-<body>
-    
-<div id="pdfArea">
-<div id="portfolioRoot"></div>
+const data = JSON.parse(localStorage.getItem("portfolioData"));
 
-</div>
-<div style="text-align:center;margin-top:20px">
-  <button onclick="downloadPDF()" style="
-    padding:12px 18px;
-    border:none;
-    border-radius:10px;
-    background:var(--theme);
-    color:#fff;
-    cursor:pointer;
-  ">Download PDF</button>
+if (!data) {
+  document.body.innerHTML = "<h2>No portfolio data found</h2>";
+  throw new Error("No data");
+}
 
-  <button onclick="downloadZIP()" style="
-    padding:12px 18px;
-    border:none;
-    border-radius:10px;
-    background:#111;
-    color:#fff;
-    cursor:pointer;
-    margin-left:10px;
-  ">Download ZIP</button>
-</div>
-<script src="js/portfolio.js"></script>
+// 2. Prepare reusable values
+const skillsHTML = data.skills
+  ? data.skills.split(",").map(s => `<span>${s.trim()}</span>`).join("")
+  : "";
 
-</body>
-</html>
+const photoHTML = data.photo
+  ? `<img src="${data.photo}" class="avatar">`
+  : "";
+
+// 3. Template renderer
+let html = "";
+
+if (data.template === "creative") {
+  html = `
+    <div class="container creative">
+      <div class="creative-left">
+        ${photoHTML}
+        <h3>${data.name}</h3>
+        <span class="badge">${data.role}</span>
+      </div>
+
+      <div class="creative-right">
+        <h1>About Me</h1>
+        <p>${data.about}</p>
+
+        <h3>Skills</h3>
+        <div class="skills">${skillsHTML}</div>
+
+        <p>${data.email}</p>
+      </div>
+    </div>
+  `;
+}
+
+else if (data.template === "editorial") {
+  html = `
+    <div class="container editorial">
+      <div class="editorial-left">
+        ${photoHTML}
+        <h2>${data.name}</h2>
+        <p>${data.role}</p>
+        <p>${data.email}</p>
+      </div>
+
+      <div class="editorial-right">
+        <h1>Profile</h1>
+        <p>${data.about}</p>
+
+        <h3>Expertise</h3>
+        <div class="skills">${skillsHTML}</div>
+      </div>
+    </div>
+  `;
+}
+
+else if (data.template === "modern") {
+  html = `
+    <div class="container modern">
+      ${photoHTML}
+      <h1>${data.name}</h1>
+      <h3>${data.role}</h3>
+      <p>${data.about}</p>
+
+      <div class="skills">${skillsHTML}</div>
+      <p>${data.email}</p>
+    </div>
+  `;
+}
+
+// 4. Inject into page
+document.getElementById("portfolioRoot").innerHTML = html;
+
+// 5. PDF
+function downloadPDF() {
+  const element = document.getElementById("pdfArea");
+  html2pdf().from(element).save("portfolio.pdf");
+}
+
+// 6. ZIP
+function downloadZIP() {
+  const zip = new JSZip();
+  zip.file("portfolio.html", document.documentElement.outerHTML);
+
+  zip.generateAsync({ type: "blob" }).then(blob => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "portfolio.zip";
+    a.click();
+  });
+}
