@@ -6,15 +6,15 @@ const resetBtn = document.getElementById("resetBtn");
 
 let photoURL = "";
 
-document.querySelectorAll("input, textarea, select").forEach(input => {
+document.querySelectorAll("input, textarea, select").forEach((input) => {
   input.addEventListener("input", renderPreview);
 });
 
-photoInput.addEventListener("change", function() {
+photoInput.addEventListener("change", function () {
   const file = this.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       photoURL = e.target.result;
       renderPreview();
     };
@@ -22,12 +22,28 @@ photoInput.addEventListener("change", function() {
   }
 });
 
+const savedData = JSON.parse(localStorage.getItem("portfolioData"));
+
+if (savedData) {
+  document.getElementById("name").value = savedData.name || "";
+  document.getElementById("role").value = savedData.role || "";
+  document.getElementById("about").value = savedData.about || "";
+  document.getElementById("skills").value = savedData.skills || "";
+  document.getElementById("email").value = savedData.email || "";
+  templateSelect.value = savedData.template || "creative";
+
+
+  if (savedData.photo) {
+    photoURL = savedData.photo;
+  }
+}
+
 function renderPreview() {
   const name = document.getElementById("name").value || "Your Name";
   const role = document.getElementById("role").value || "Your Role";
   const about = document.getElementById("about").value || "About section...";
   const skills = document.getElementById("skills").value || "Skills...";
-  const email = document.getElementById("email").value || "";
+  const email = document.getElementById("email").value || ""; // Grab Email
   const template = templateSelect.value;
 
   const imgHTML = photoURL ? `<img src="${photoURL}" class="mini-photo">` : "";
@@ -44,8 +60,7 @@ function renderPreview() {
         <div style="margin-top:8px; font-size:11px; font-weight:bold; color:#444">Skills: ${skills}</div>
         <div style="margin-top:8px; font-size:11px; color:#667eea">📧 ${email}</div>
       </div>`;
-  } 
-  else if (template === "editorial") {
+  } else if (template === "editorial") {
     html = `
       <div class="t-editorial">
         ${imgHTML}
@@ -55,8 +70,7 @@ function renderPreview() {
         <hr style="margin:8px 0; opacity:0.3">
         <p style="font-size:13px">${about}</p>
       </div>`;
-  } 
-  else if (template === "modern") {
+  } else if (template === "modern") {
     html = `
       <div class="t-modern">
         ${imgHTML}
@@ -71,7 +85,7 @@ function renderPreview() {
 }
 
 resetBtn.addEventListener("click", () => {
-  if(confirm("Clear form?")) {
+  if (confirm("Clear form?")) {
     form.reset();
     photoURL = "";
     renderPreview();
@@ -79,3 +93,24 @@ resetBtn.addEventListener("click", () => {
 });
 
 renderPreview();
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const portfolioData = {
+    name: document.getElementById("name").value,
+    role: document.getElementById("role").value,
+    about: document.getElementById("about").value,
+    skills: document.getElementById("skills").value,
+    email: document.getElementById("email").value,
+    template: templateSelect.value,
+    photo: photoURL
+  };
+
+  localStorage.setItem(
+    "portfolioData",
+    JSON.stringify(portfolioData)
+  );
+
+  window.location.href = "portfolio.html";
+});
