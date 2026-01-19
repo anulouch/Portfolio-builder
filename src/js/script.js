@@ -1,0 +1,5 @@
+var items = document.querySelectorAll(".fade");
+
+for (var i = 0; i < items.length; i++) {
+  items[i].classList.add("show");
+}
