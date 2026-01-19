@@ -11,7 +11,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== BACKGROUND EFFECTS ===== */
 .bg-gradient {
   position: fixed;
   inset: 0;
@@ -29,7 +28,6 @@ body {
   z-index: -1;
 }
 
-/* ===== NAVBAR ===== */
 .navbar {
   background: rgba(15,18,32,0.8);
   backdrop-filter: blur(8px);
@@ -39,7 +37,6 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-/* ===== BUTTONS ===== */
 .btn {
   position: relative;
   padding: 10px 22px;
@@ -67,7 +64,6 @@ body {
   opacity: 1;
 }
 
-/* ===== HERO ===== */
 .hero {
   text-align: center;
   padding: 110px 30px 80px;
@@ -83,13 +79,11 @@ body {
   color: #d0d3ff;
 }
 
-/* ===== TEMPLATE PREVIEW ===== */
 .template-preview {
   padding: 90px 40px;
   text-align: center;
 }
 
-/* Uiverse 3D carousel */
 .wrapper {
   height: 320px;
   display: flex;
@@ -145,7 +139,6 @@ body {
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-/* ===== MOCK TEMPLATE CONTENT ===== */
 .mock-header {
   height: 22px;
   background: rgba(255,255,255,0.9);
@@ -176,7 +169,6 @@ body {
   width: 60%;
 }
 
-/* ===== FEATURES ===== */
 .features {
   padding: 80px 40px;
   text-align: center;
@@ -202,14 +194,12 @@ body {
   transform: translateY(-6px);
 }
 
-/* ===== CTA ===== */
 .cta {
   text-align: center;
   padding: 80px 40px;
   background: linear-gradient(135deg, #3f51b5, #00bcd4);
 }
 
-/* ===== FOOTER ===== */
 footer {
   text-align: center;
   padding: 15px;

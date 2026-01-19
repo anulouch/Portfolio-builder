@@ -3,7 +3,6 @@ body {
   padding: 20px;
 }
 
-/* Base Card */
 .card {
   max-width: 500px;
   margin: auto;
@@ -25,12 +24,10 @@ ul li {
   list-style: square;
 }
 
-/* Themes */
 .light { background: #f5f5f5; color: black; }
 .dark { background: #121212; color: white; }
 .blue { background: #e3f2fd; color: #0d47a1; }
 
-/* Layouts */
 .card.card {
   text-align: center;
 }
