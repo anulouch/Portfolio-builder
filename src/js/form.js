@@ -1,4 +1,3 @@
-// 1. Select DOM Elements
 const form = document.getElementById("portfolioForm");
 const previewBox = document.getElementById("previewBox");
 const photoInput = document.getElementById("photo");
@@ -7,17 +6,15 @@ const resetBtn = document.getElementById("resetBtn");
 
 let photoURL = "";
 
-// 2. Event Listeners for REAL-TIME updates
-document.querySelectorAll("input, textarea, select").forEach((input) => {
+document.querySelectorAll("input, textarea, select").forEach(input => {
   input.addEventListener("input", renderPreview);
 });
 
-// 3. Handle Photo Upload
-photoInput.addEventListener("change", function () {
+photoInput.addEventListener("change", function() {
   const file = this.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = function(e) {
       photoURL = e.target.result;
       renderPreview();
     };
@@ -25,13 +22,12 @@ photoInput.addEventListener("change", function () {
   }
 });
 
-// 4. The Render Function (Updated to show Email)
 function renderPreview() {
   const name = document.getElementById("name").value || "Your Name";
   const role = document.getElementById("role").value || "Your Role";
   const about = document.getElementById("about").value || "About section...";
   const skills = document.getElementById("skills").value || "Skills...";
-  const email = document.getElementById("email").value || ""; // Grab Email
+  const email = document.getElementById("email").value || "";
   const template = templateSelect.value;
 
   const imgHTML = photoURL ? `<img src="${photoURL}" class="mini-photo">` : "";
@@ -48,7 +44,8 @@ function renderPreview() {
         <div style="margin-top:8px; font-size:11px; font-weight:bold; color:#444">Skills: ${skills}</div>
         <div style="margin-top:8px; font-size:11px; color:#667eea">📧 ${email}</div>
       </div>`;
-  } else if (template === "editorial") {
+  } 
+  else if (template === "editorial") {
     html = `
       <div class="t-editorial">
         ${imgHTML}
@@ -58,7 +55,8 @@ function renderPreview() {
         <hr style="margin:8px 0; opacity:0.3">
         <p style="font-size:13px">${about}</p>
       </div>`;
-  } else if (template === "modern") {
+  } 
+  else if (template === "modern") {
     html = `
       <div class="t-modern">
         ${imgHTML}
@@ -72,14 +70,12 @@ function renderPreview() {
   previewBox.innerHTML = html;
 }
 
-// 5. Reset Button
 resetBtn.addEventListener("click", () => {
-  if (confirm("Clear form?")) {
+  if(confirm("Clear form?")) {
     form.reset();
     photoURL = "";
     renderPreview();
   }
 });
 
-// 6. Initial Call
 renderPreview();
