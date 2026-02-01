@@ -29,6 +29,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: white;
   border-radius: 6px;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 
