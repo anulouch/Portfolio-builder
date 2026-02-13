@@ -10,7 +10,7 @@ body {
     system-ui,
     -apple-system,
     sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2); /* Purple Gradient */
+  background: linear-gradient(135deg, #77ccdf, #764ba2); /* Purple Gradient */
   min-height: 100vh;
   display: flex;
   justify-content: center;
