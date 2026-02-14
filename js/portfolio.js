@@ -1,0 +1,98 @@
+// 1. Fetch data
+const data = JSON.parse(localStorage.getItem("portfolioData"));
+
+if (!data) {
+  document.body.innerHTML = "<h2>No portfolio data found</h2>";
+  throw new Error("No data");
+}
+
+// 2. Prepare reusable values
+const skillsHTML = data.skills
+  ? data.skills.split(",").map(s => `<span>${s.trim()}</span>`).join("")
+  : "";
+
+const photoHTML = data.photo
+  ? `<img src="${data.photo}" class="avatar">`
+  : "";
+
+// 3. Template renderer
+let html = "";
+
+if (data.template === "creative") {
+  html = `
+    <div class="container creative">
+      <div class="creative-left">
+        ${photoHTML}
+        <h3>${data.name}</h3>
+        <span class="badge">${data.role}</span>
+      </div>
+
+      <div class="creative-right">
+        <h1>About Me</h1>
+        <p>${data.about}</p>
+
+        <h3>Skills</h3>
+        <div class="skills">${skillsHTML}</div>
+
+        <p>${data.email}</p>
+      </div>
+    </div>
+  `;
+}
+
+else if (data.template === "editorial") {
+  html = `
+    <div class="container editorial">
+      <div class="editorial-left">
+        ${photoHTML}
+        <h2>${data.name}</h2>
+        <p>${data.role}</p>
+        <p>${data.email}</p>
+      </div>
+
+      <div class="editorial-right">
+        <h1>Profile</h1>
+        <p>${data.about}</p>
+
+        <h3>Expertise</h3>
+        <div class="skills">${skillsHTML}</div>
+      </div>
+    </div>
+  `;
+}
+
+else if (data.template === "modern") {
+  html = `
+    <div class="container modern">
+      ${photoHTML}
+      <h1>${data.name}</h1>
+      <h3>${data.role}</h3>
+      <p>${data.about}</p>
+
+      <div class="skills">${skillsHTML}</div>
+      <p>${data.email}</p>
+    </div>
+  `;
+}
+
+// 4. Inject into page
+document.getElementById("portfolioRoot").innerHTML = html;
+
+// 5. PDF
+function downloadPDF() {
+  const element = document.getElementById("pdfArea");
+  html2pdf().from(element).save("portfolio.pdf");
+}
+
+// 6. ZIP
+function downloadZIP() {
+  const zip = new JSZip();
+  zip.file("portfolio.html", document.documentElement.outerHTML);
+
+  zip.generateAsync({ type: "blob" }).then(blob => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "portfolio.zip";
+    a.click();
+  });
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <link rel="stylesheet" href="css/portfolio.css">
+</head>
+
+<body>
+
+  <div id="pdfArea">
+    <div id="portfolioRoot"></div>
+
+  </div>
+  <div class="action-buttons"
+    style="text-align:center;margin:40px 0; display:flex; justify-content:center; gap:15px; flex-wrap:wrap">
+    <button onclick="window.location.href='create.html'" style="
+    padding:14px 28px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:#fff;
+    color:#333;
+    font-weight:600;
+    cursor:pointer;
+    transition: all 0.3s ease;
+  ">Back to Editor</button>
+
+    <button onclick="downloadPDF()" style="
+    padding:14px 28px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg, #6366f1, #4f46e5);
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+    transition: all 0.3s ease;
+  ">Download PDF</button>
+
+    <button onclick="downloadZIP()" style="
+    padding:14px 28px;
+    border:none;
+    border-radius:12px;
+    background:#0f172a;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  ">Download ZIP</button>
+  </div>
+  <script src="js/portfolio.js"></script>
+
+</body>
+
+</html>
